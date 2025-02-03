@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Verify Your Email{% endblock %}
+
+{% block body %}
+    <h1>Verify Your Email</h1>
+
+    <p>An email has been sent to {{ email }} with a verification code. Please enter the code below to verify your account.</p>
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <form method="post" action="{{ path('app_verify_code') }}">
+        <div>
+            <label for="verification_code">Verification Code</label>
+            <input type="text" id="verification_code" name="verification_code" required>
+        </div>
+
+        <button type="submit">Verify</button>
+    </form>
+{% endblock %}
