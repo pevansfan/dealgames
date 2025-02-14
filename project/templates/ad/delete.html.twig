@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Supprimer l'annonce</h1>
+
+    <form action="{{ path('app_delete', { 'id': ad.id }) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette annonce ?');">
+        <button type="submit" class="btn btn-danger">Supprimer l'annonce</button>
+        <a href="{{ path('app_user_ads') }}" class="btn btn-secondary">Annuler</a>
+    </form>
+{% endblock %}

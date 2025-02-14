@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une annonce{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="mt-4">Ajouter une annonce</h1>
+
+    {{ form_start(form, { 'method': 'post', 'enctype': 'multipart/form-data' }) }}
+        {{ form_errors(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.category) }}
+        {{ form_row(form.author) }}
+        {{ form_row(form.imageFile) }}
+        {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+
+    <div class="button-primary">
+        <a href="{{ path('app_index') }}">Retour aux annonces</a>
+    </div>
+    
+</div>
+{% endblock %}

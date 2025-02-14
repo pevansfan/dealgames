@@ -1,0 +1,8 @@
+@use '../base/variables';
+@use '../base/mixins';
+
+/* Global */
+body {
+    background-color: variables.$background-color;
+    color: variables.$principal-text-color;
+}

@@ -6,25 +6,50 @@ controllers:
 
 app_login:
     path: /login
-    controller: App\Controller\SecurityController::login
+    controller: App\Controller\User\SecurityController::login
     methods: [GET, POST]
 
 app_logout:
     path: /logout
-    controller: App\Controller\SecurityController::logout
+    controller: App\Controller\User\SecurityController::logout
     methods: [GET, POST]
 
 app_register:
     path: /register
-    controller: App\Controller\RegistrationController::register
+    controller: App\Controller\User\RegistrationController::register
     methods: [GET, POST]
 
 app_verify_email:
     path: /verify/email
-    controller: App\Controller\RegistrationController::verifyUserEmail
+    controller: App\Controller\User\RegistrationController::verifyUserEmail
     methods: [GET]
 
 app_verify_code:
     path: /verify/code
-    controller: App\Controller\RegistrationController::verifyCode
+    controller: App\Controller\User\RegistrationController::verifyCode
+    methods: [GET, POST]
+
+app_create_ad:
+    path: /create
+    controller: App\Controller\IndexController::createAd
+    methods: [GET, POST]
+
+app_user_ads:
+    path: /mes-annonces
+    controller: App\Controller\Ad\AdController::myAds
+    methods: [GET, POST]
+
+app_update_ad:
+    path: /mes-annonces/update/{id}
+    controller: App\Controller\Ad\UpdateController::update
+    methods: [GET, POST]
+
+app_delete:
+    path: /delete/{id}
+    controller: App\Controller\Ad\DeleteController::delete
+    methods: [GET, POST]
+
+app_profile:
+    path: /profile
+    controller: App\Controller\User\ProfileController::index
     methods: [GET, POST]

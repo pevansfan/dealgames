@@ -7,6 +7,7 @@ services:
       dockerfile: docker/php/Dockerfile
     volumes:
       - ./project:/var/www
+      - ./php.ini:/usr/local/etc/php/conf.d/custom.ini
     depends_on:
       - database
     networks:
@@ -32,7 +33,7 @@ services:
       MYSQL_USER: symfony
       MYSQL_PASSWORD: symfony
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
     networks:

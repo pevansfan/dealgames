@@ -1,0 +1,26 @@
+{# templates/ad/my_ads.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes annonces{% endblock %}
+
+{% block body %}
+    <h1>Mes annonces</h1>
+
+    {% if annonces is empty %}
+        <p>Aucune annonce trouvée.</p>
+    {% else %}
+        <ul class="lst-announces">
+            {% for annonce in annonces %}
+                <li>
+                    <span>{{ annonce.title }}</span>
+                    <a href="{{ path('app_update_ad', { id: annonce.id }) }}">Modifier l'annonce</a>
+                    <a href="{{ path('app_delete', { id: annonce.id }) }}">Supprimer l'annonce</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div class="button-primary">
+        <a href="{{ path('app_index') }}">Retour aux annonces</a>
+    </div>
+{% endblock %}

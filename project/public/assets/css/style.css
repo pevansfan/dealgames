@@ -1,0 +1,197 @@
+/* ==================== BASE ==================== */
+/* Reset */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  scroll-behavior: smooth;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button, input {
+  border: none;
+  outline: none;
+}
+
+/* Variables (voir _variables.scss) */
+/* Typography */
+body {
+  font-family: "Montserrat", serif;
+  font-size: 1rem;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+}
+
+/* Global */
+body {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+/* ==================== LAYOUT ==================== */
+/* ==================== COMPONENTS ==================== */
+.form-section {
+  min-height: 100vh;
+  background-image: url(../../../images/background.jpg);
+  background-size: cover;
+  background-position: right;
+  overflow: hidden;
+}
+
+.wrapper {
+  box-sizing: border-box;
+  background-color: #FFFFFF;
+  height: 100vh;
+  width: max(40%, 600px);
+  padding: 10px;
+  border-radius: 0 20px 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+form {
+  width: min(400px, 100%);
+  margin-top: 20px;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+form > div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+form label {
+  flex-shrink: 0;
+  height: 50px;
+  width: 50px;
+  background-color: #8672FF;
+  fill: var(--base-color);
+  color: var(--base-color);
+  border-radius: 10px 0 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+form input {
+  box-sizing: border-box;
+  flex-grow: 1;
+  min-width: 0;
+  height: 50px;
+  padding: 1em;
+  font: inherit;
+  border-radius: 0 10px 10px 0;
+  border: 2px solid #F0F0F2;
+  border-left: none;
+  background-color: #F0F0F2;
+  transition: 150ms ease;
+}
+
+form input:hover {
+  border-color: #8672FF;
+}
+
+form input:focus {
+  outline: none;
+  border-color: #000000;
+}
+
+div:has(input:focus) > label {
+  background-color: #000000;
+}
+
+form input::placeholder {
+  color: #000000;
+}
+
+form button {
+  margin-top: 10px;
+  border: none;
+  border-radius: 1000px;
+  padding: 0.85em 4em;
+  background-color: #8672FF;
+  color: #FFFFFF;
+  font: inherit;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 150ms ease;
+}
+
+form button:hover {
+  background-color: #000000;
+}
+
+form button:focus {
+  outline: none;
+  background-color: #000000;
+}
+
+a {
+  text-decoration: none;
+  color: #8672FF;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1100px) {
+  .wrapper {
+    width: min(600px, 100%);
+    border-radius: 0;
+  }
+}
+form div.incorrect label {
+  background-color: #f06272;
+}
+
+form div.incorrect input {
+  border-color: #f06272;
+}
+
+#error-message {
+  color: #f06272;
+}
+
+/* ==================== PAGES ==================== */
+/* ==================== MEDIA QUERIES ==================== */
+
+/*# sourceMappingURL=style.css.map */

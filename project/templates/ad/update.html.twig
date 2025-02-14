@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'annonce{% endblock %}
+
+{% block body %}
+    <h1>Modifier l'annonce</h1>
+    
+    {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+{% endblock %}

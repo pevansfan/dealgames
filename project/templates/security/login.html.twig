@@ -3,30 +3,41 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
 
-    {% if app.user %}
+<div class="form-section">
+    <div class="wrapper">
+        <h1>Login</h1>
+        <p id="error-message"></p>
+        {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% if app.user %}
         <div class="mb-3">
             You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-    <a href="{{ path('app_register') }}">Register</a>
-</form>
+        {% endif %}
+        <form id="form" method="post">
+            <div>
+                <label for="inputEmail">
+                    <span>@</span>
+                </label>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
+                    autocomplete="email" placeholder="Email" required autofocus>
+            </div>
+            <div>
+                <label for="inputPassword">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                        <path
+                            d="M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h40v-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm240-200q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM360-640h240v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80Z" />
+                    </svg>
+                </label>
+                <input type="password" name="password" id="inputPassword" class="form-control"
+                    autocomplete="current-password" placeholder="Password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <p>New here? <a href="{{ path('app_register') }}">Create an Account</a></p>
+    </div>
+</div>
 {% endblock %}

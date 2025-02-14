@@ -1,21 +1,81 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello IndexController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/src/Controller/IndexController.php</code></li>
-        <li>Your template at <code>/var/www/templates/index/index.html.twig</code></li>
-    </ul>
+<div class="button-primary">
+    <a href="{{ path('app_create_ad') }}">Ajouter une annonce</a>
 </div>
-<a href="{{ path('app_logout') }}">Logout</a>
+
+<div class="button-primary">
+    <a href="{{ path('app_user_ads') }}">Voir mes annonces</a>
+</div>
+
+<div class="button-primary">
+    <a href="{{ path('app_profile') }}">Mon profil</a>
+</div>
+
+<div class="button-primary">
+    <a href="{{ path('app_logout') }}">Logout</a>
+</div>
+
+{# <section class="articles__container">
+    <div class="card__container">
+        <div class="card__content">
+            <div class="swiper-wrapper">
+                {% if annonces is empty %}
+                <p>Aucune annonce disponible.</p>
+                {% else %}
+                {% for annonce in annonces %}
+                <article class="card__article swiper-slide">
+                    <div class="card__image">
+                        <img src="{{ asset('images/products/' ~ annonce.imageName) }}"
+                            alt="Image de {{ annonce.title }}">
+                    </div>
+
+                    <div class="card__data">
+                        <h3 class="card__name">{{ annonce.title }}</h3>
+                        <p class="card__description">
+                            {{ annonce.description }}
+                        </p>
+
+                        <a href="#" class="card__button">View More</a>
+                    </div>
+                </article>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section> #}
+
+<section class="articles">
+    {% if annonces is empty %}
+    <p>Aucune annonce disponible.</p>
+    {% else %}
+    {% for annonce in annonces %}
+    <article>
+        <div class="article-wrapper">
+            <figure>
+                <img src="{{ asset('images/products/' ~ annonce.imageName) }}" alt="Image de {{ annonce.title }}">
+            </figure>
+            <div class="article-body">
+                <h2>{{ annonce.title }}</h2>
+                <p>
+                    {{ annonce.description }}
+                </p>
+                <div>Catégorie : <strong>{{ annonce.category.name }}</strong></div>
+                <a href="{{ path('app_update_ad', { id: annonce.id }) }}" class="read-more">
+                    Read more <span class="sr-only">about this is some title</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </article>
+    {% endfor %}
+    {% endif %}
+</section>
 {% endblock %}
