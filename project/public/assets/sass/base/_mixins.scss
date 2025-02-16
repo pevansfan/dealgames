@@ -1,0 +1,26 @@
+@use '../base/variables';
+
+@mixin button {
+    button {
+        margin-top: 10px;
+        border: none;
+        border-radius: 1000px;
+        padding: .85em 4em;
+        background-color: variables.$primary-color;
+        color: variables.$background-color;
+        font: inherit;
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: 150ms ease;
+    }
+    
+    button:hover {
+        background-color: variables.$principal-text-color;
+    }
+    
+    button:focus {
+        outline: none;
+        background-color: variables.$principal-text-color;
+    }
+}

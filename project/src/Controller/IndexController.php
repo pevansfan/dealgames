@@ -32,7 +32,7 @@ final class IndexController extends AbstractController
     public function createAd(Request $request, EntityManagerInterface $entityManager): Response
     {
         $annonce = new Ad();
-        $form = $this->createForm(AnnonceType::class, new Ad(), [
+        $form = $this->createForm(AnnonceType::class, $annonce, [
             'submit_label' => 'Ajouter l\'annonce'
         ]);
         

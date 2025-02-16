@@ -17,6 +17,9 @@
             You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
         {% endif %}
+        {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
         <form id="form" method="post">
             <div>
                 <label for="inputEmail">
@@ -33,11 +36,14 @@
                     </svg>
                 </label>
                 <input type="password" name="password" id="inputPassword" class="form-control"
-                    autocomplete="current-password" placeholder="Password" required>
+                    autocomplete="current-password" placeholder="Mot de passe" required>
             </div>
-            <button type="submit">Login</button>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <button type="submit">Se connecter</button>
         </form>
-        <p>New here? <a href="{{ path('app_register') }}">Create an Account</a></p>
+        <p>Nouveau ici ? <a href="{{ path('app_register') }}">S'inscrire</a></p>
+        <p><a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié ?</a></p>
     </div>
 </div>
 {% endblock %}

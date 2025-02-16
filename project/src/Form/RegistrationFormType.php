@@ -27,15 +27,7 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Prénom',
                 'attr' => ['placeholder' => 'Entrez votre prénom']
             ])
-            ->add('email')
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-            ])
+            ->add('email')          
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
@@ -50,19 +42,27 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('confirmPassword', PasswordType::class, [
+            // ->add('repeatPassword', PasswordType::class, [
+            //     'mapped' => false,
+            //     'attr' => ['autocomplete' => 'new-password'],
+            //     'constraints' => [
+            //         new NotBlank([
+            //             'message' => 'Please confirm your password',
+            //         ]),
+            //         new EqualTo([
+            //             'value' => '',
+            //             'message' => 'Passwords do not match',
+            //         ]),
+            //     ],
+            // ])
+            ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please confirm your password',
-                    ]),
-                    new EqualTo([
-                        'value' => '',
-                        'message' => 'Passwords do not match',
+                    new IsTrue([
+                        'message' => 'Vous devez accepter les termes.',
                     ]),
                 ],
-            ])
+            ])  
         ;
     }
 

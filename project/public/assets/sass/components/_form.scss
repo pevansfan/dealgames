@@ -1,4 +1,5 @@
 @use '../base/variables';
+@use '../base/mixins';
 
 .form-section {
     min-height: 100vh;
@@ -19,12 +20,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    font-family: Poppins, Segoe UI, sans-serif;
 }
 
-h1 {
+.wrapper h1 {
     font-size: 3rem;
     font-weight: 900;
     text-transform: uppercase;
+    font-family: Poppins, Segoe UI, sans-serif;
 }
 
 form {
@@ -48,8 +51,8 @@ form label {
     height: 50px;
     width: 50px;
     background-color: variables.$primary-color;
-    fill: var(--base-color);
-    color: var(--base-color);
+    fill: variables.$background-color;
+    color: variables.$background-color;
     border-radius: 10px 0 0 10px;
     display: flex;
     justify-content: center;
@@ -72,6 +75,10 @@ form input {
     transition: 150ms ease;
 }
 
+form select {
+    width: 100%;
+}
+
 form input:hover {
     border-color: variables.$primary-color;
 }
@@ -85,31 +92,19 @@ div:has(input:focus)>label {
     background-color: variables.$principal-text-color;
 }
 
-form input::placeholder {
-    color: variables.$principal-text-color;
-}
-
-form button {
-    margin-top: 10px;
-    border: none;
-    border-radius: 1000px;
-    padding: .85em 4em;
-    background-color: variables.$primary-color;
-    color: variables.$background-color;
-    font: inherit;
-    font-weight: 600;
-    text-transform: uppercase;
+input[type="file"]::file-selector-button {
+    background-color: #f06272;
+    color: aliceblue;
     cursor: pointer;
-    transition: 150ms ease;
-}
-
-form button:hover {
-    background-color: variables.$principal-text-color;
-}
-
-form button:focus {
+    margin-top: -10px;
+    padding: 5px;
+    border-radius: 10px;
+    border: none;
     outline: none;
-    background-color: variables.$principal-text-color;
+}
+
+form {
+    @include mixins.button;
 }
 
 a {
@@ -138,4 +133,9 @@ form div.incorrect input {
 
 #error-message {
     color: #f06272;
+}
+
+.agree-terms {
+    display: flex;
+    align-items: center;
 }

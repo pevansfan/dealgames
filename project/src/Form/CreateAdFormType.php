@@ -25,12 +25,10 @@ class AnnonceType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Titre de l\'annonce',
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Titre'],
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Description',
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Description']
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
@@ -39,8 +37,7 @@ class AnnonceType extends AbstractType
                 'required' => true,
             ])
             ->add('author', TextType::class, [
-                'label' => 'Constructeur',
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Constructeur']
             ])
             ->add('imageFile', VichImageType::class, [
                 'required' => false,
@@ -55,7 +52,6 @@ class AnnonceType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'label' => $options['submit_label'],
-                'attr' => ['class' => 'btn btn-primary mt-3']
             ]);
     }
 
