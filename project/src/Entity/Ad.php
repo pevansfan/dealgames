@@ -23,9 +23,6 @@ class Ad
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $author = null;
-
     #[Vich\UploadableField(mapping: 'ads', fileNameProperty: 'imageName', size: 'imageSize')]
     private ?File $imageFile = null;
 
@@ -78,18 +75,6 @@ class Ad
         return $this;
     }
 
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): static
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
     public function setImageFile(?File $imageFile = null): void
     {
         $this->imageFile = $imageFile;
@@ -135,6 +120,38 @@ class Ad
 
         return $this;
     }
+
+    public function getPublishedAtRelative(): string
+    {
+        $now = new \DateTime();
+        $interval = $this->created_at->diff($now);
+
+        if ($interval->d == 0) {
+            // Si publié il y a moins de 24h
+            if ($interval->h == 0) {
+                if ($interval->i < 1) {
+                    return "Publiée il y a quelques secondes";
+                }
+                elseif ($interval->i == 1) {
+                    return "Publiée il y a $interval->i minute";
+                } 
+                return "Publiée il y a $interval->i minutes";
+            } 
+            elseif ($interval->h == 1) {
+                return "Publiée il y a $interval->h heure";
+            }
+
+            return "Publiée il y a " . $interval->h . " heures";
+        } elseif ($interval->d < 7) {
+            if ($interval->d == 1) {
+                return "Publiée il y a " . $interval->d . " jour";
+            }
+            return "Publiée il y a " . $interval->d . " jours";
+        } else {
+            return "Publiée le " . $this->created_at->format('d/m/Y');
+        }
+    }
+
 
     public function getCategory(): ?Category
     {

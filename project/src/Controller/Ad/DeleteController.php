@@ -23,7 +23,7 @@ class DeleteController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Annonce supprimée avec succès.');
-            return $this->redirectToRoute('app_user_ads');
+            return $this->redirectToRoute('app_profile');
         }
 
         return $this->render('ad/delete.html.twig', [

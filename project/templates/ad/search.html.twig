@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Résultats pour "{{ query }}"</h2>
+
+    {% if ads is empty %}
+        <p>Aucun résultat trouvé.</p>
+    {% else %}
+        <ul>
+            {% for ad in ads %}
+                <li>
+                    <h3>{{ ad.title }}</h3>
+                    <p>{{ ad.description }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

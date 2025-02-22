@@ -1,5 +1,11 @@
+@use '../base/variables';
+
 body {
     background-color: #E4E9F7;
+}
+
+body.dark {
+    background-color: #000;
 }
 
 nav {
@@ -20,16 +26,17 @@ nav .nav-bar {
     position: relative;
     height: 100%;
     width: 100%;
-    background-color: #242526;
+    background-color: variables.$background-color;
     margin: 0 auto;
     padding: 50px 30px;
     display: flex;
     align-items: center;
     justify-content: space-around;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
 nav .nav-bar .sidebarOpen {
-    color: #CCC;
+    color: variables.$principal-text-color;
     font-size: 25px;
     padding: 5px;
     cursor: pointer;
@@ -39,8 +46,42 @@ nav .nav-bar .sidebarOpen {
 nav .nav-bar .logo a {
     font-size: 25px;
     font-weight: 500;
-    color: #CCC;
+    color: variables.$principal-text-color;
     text-decoration: none;
+}
+
+nav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+nav .categories {
+    transition: all .3s;
+}
+
+nav .categories .dropdown-categories {
+    width: 200px;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    background-color: variables.$background-color;
+    position: absolute;
+    border-radius: 10px;
+    transition: all .3s;
+}
+
+nav .categories .icon-down {
+    transition: all .3s;
+}
+
+nav .categories:hover .dropdown-categories {
+    display: flex;
+}
+
+nav .categories:hover .icon-down {
+    transform: rotate(90deg);
 }
 
 .menu .logo-toggle {
@@ -61,36 +102,25 @@ nav .nav-bar .logo a {
     position: relative;
     font-size: 17px;
     font-weight: 400;
-    color: #CCC;
+    color: variables.$principal-text-color;
     text-decoration: none;
     padding: 10px;
 }
 
-.nav-links li a::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%);
-    height: 6px;
-    width: 6px;
-    border-radius: 50%;
-    background-color: #CCC;
-    opacity: 0;
-    transition: all 0.3s ease;
-}
-
-.nav-links li:hover a::before {
-    opacity: 1;
-}
-
 .nav-bar .darkLight-searchBox {
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 
+#searchForm {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
 .darkLight-searchBox .dark-light,
-.darkLight-searchBox .searchToggle {
+.darkLight-searchBox .searchToggle,
+.dark-light-searchBox .account {
     height: 40px;
     width: 40px;
     display: flex;
@@ -102,7 +132,7 @@ nav .nav-bar .logo a {
 .dark-light ion-icon,
 .searchToggle ion-icon {
     position: absolute;
-    color: #CCC;
+    color: variables.$principal-text-color;
     font-size: 22px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -186,7 +216,7 @@ nav .nav-bar .logo a {
     border-radius: 4px;
     font-size: 14px;
     font-weight: 400;
-    color: #CCC;
+    color: variables.$background-color;
     background-color: #242526;
 }
 
@@ -199,12 +229,32 @@ nav .nav-bar .logo a {
 }
 
 body.dark .search-field ion-icon {
-    color: #CCC;
+    color: variables.$principal-text-color;
 }
 
+.account {
+    display: flex;
+    align-items: center;
+
+    ion-icon {
+        color: variables.$principal-text-color;
+        font-size: 22px;
+        margin: 0 5px;
+        cursor: pointer;
+    }
+}
 @media (max-width: 790px) {
     nav .nav-bar .sidebarOpen {
         display: block;
+    }
+
+    nav .nav-bar .logo a {
+        color: variables.$background-color;
+    }
+
+    nav .categories .dropdown-categories {
+        position: relative;
+        background-color: inherit;
     }
 
     .menu {
@@ -250,5 +300,6 @@ body.dark .search-field ion-icon {
     .nav-links li a {
         display: block;
         margin-top: 20px;
+        color: variables.$background-color;
     }
 }

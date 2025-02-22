@@ -36,14 +36,9 @@ class AnnonceType extends AbstractType
                 'placeholder' => 'Choisir une catégorie',
                 'required' => true,
             ])
-            ->add('author', TextType::class, [
-                'attr' => ['class' => 'form-control', 'placeholder' => 'Constructeur']
-            ])
             ->add('imageFile', VichImageType::class, [
                 'required' => false,
-                'allow_delete' => true,
-                'delete_label' => 'Supprimer l\'image',
-                'asset_helper' => true,
+                'allow_delete' => false,
                 'constraints' => [
                     new Image([
                         'maxSize' => '10M'

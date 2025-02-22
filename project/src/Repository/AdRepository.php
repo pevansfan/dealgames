@@ -27,6 +27,33 @@ class AdRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findByCategory($categoryId): array
+    {
+        $queryBuilder = $this->createQueryBuilder('a')
+            ->orderBy('a.created_at', 'DESC');
+
+        if ($categoryId !== 'all') {
+            $queryBuilder->andWhere('a.category = :categoryId')
+                ->setParameter('categoryId', $categoryId);
+        }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+
+    public function search(string $query): array
+    {
+        return $this->createQueryBuilder('a')
+            ->leftJoin('a.category', 'c') // Jointure avec la catégorie
+            ->andWhere('a.title LIKE :query')
+            ->orWhere('a.description LIKE :query')
+            ->orWhere('c.name LIKE :query') // Si la catégorie a un champ "name"
+            ->setParameter('query', "%$query%")
+            ->orderBy('a.created_at', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
 
     //    /**
     //     * @return Ad[] Returns an array of Ad objects

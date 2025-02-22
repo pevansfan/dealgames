@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Modifier l'annonce</h1>
     
-    {{ form_start(form) }}
+    {{ form_start(form, {'class': 'form'}) }}
         {{ form_row(form.title) }}
         {{ form_row(form.description) }}
         {{ form_row(form.submit) }}

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -19,11 +20,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
-    /**
-     * @var list<string> The user roles
-     */
-    #[ORM\Column(type: 'json')]
-    private array $roles = [];
+    #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'users')]
+    private Collection $roles;
 
     /**
      * @var string The hashed password
@@ -72,26 +70,47 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @see UserInterface
-     *
-     * @return list<string>
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
+        $roles = $this->roles->map(fn(Role $role) => $role->getName())->toArray();
+
+        // On s'assure que chaque utilisateur ait au moins ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
 
-    /**
-     * @param list<string> $roles
-     */
-    public function setRoles(array $roles): static
+    public function addRole(Role $role): static
     {
-        $this->roles = $roles;
+        if (!$this->roles->contains($role)) {
+            $this->roles->add($role);
+        }
 
         return $this;
+    }
+
+    public function removeRole(Role $role): static
+    {
+        $this->roles->removeElement($role);
+
+        return $this;
+    }
+
+    public function setRoles(array $roles): static
+    {
+        // Cette méthode ne sert plus vraiment dans ce cas de ManyToMany
+        // Tu peux la laisser vide ou lever une exception si tu veux
+        return $this;
+    }
+
+
+    /**
+     * @return Collection<int, Role>
+     */
+    public function getRolesEntities(): Collection
+    {
+        return $this->roles;
     }
 
     /**

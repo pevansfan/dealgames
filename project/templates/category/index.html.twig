@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ConsoleController!{% endblock %}
+
+{% block body %}
+<section class="section shop" id="shop">
+    <div class="shop__titles">
+        <h1>Shop</h1>
+        <p>
+            <span>Home <ion-icon name="chevron-forward-outline"></ion-icon></span>
+            <span>Shop</span>
+        </p>
+    </div>
+</section>
+<div class="filters" id="filters">
+    <h2>Tout ce dont vous avez besoin</h2>
+    <div class="filters__group">
+        <ul>
+            <li class="category {% if selectedCategoryId == 'all' %}active{% endif %}">
+                <a href="{{ path('app_categories', {id: 'all'}) }}#filters">Tout</a>
+            </li>
+            <li class="category {% if selectedCategoryId == 1 %}active{% endif %}">
+                <a href="{{ path('app_categories', {id: 1}) }}#filters">Consoles</a>
+            </li>
+            <li class="category {% if selectedCategoryId == 2 %}active{% endif %}">
+                <a href="{{ path('app_categories', {id: 2}) }}#filters">Jeux</a>
+            </li>
+            <li class="category {% if selectedCategoryId == 3 %}active{% endif %}">
+                <a href="{{ path('app_categories', {id: 3}) }}#filters">Accessoires</a>
+            </li>
+        </ul>        
+    </div>
+</div>
+<section class="section products" id="products">
+    <div class="articles">
+        {% if annonces is empty %}
+        <p>Aucune annonce disponible.</p>
+        {% else %}
+        {% for annonce in annonces %}
+
+        <article class="card">
+            <figure class="card-image">
+                <img src="{{ asset('images/products/' ~ annonce.imageName) }}"
+                    alt="An orange painted blue, cut in half laying on a blue background" />
+            </figure>
+            <div class="card-header">
+                <div class="infos">
+                    <a href="{{ path('app_update_ad', { id: annonce.id }) }}">{{ annonce.title }}</a>
+                    <span>Catégorie : <i>{{ annonce.category.name }}</i></span>
+                </div>
+                <div class="buttons">
+                    <div class="icon-button">
+                        <a href="{{ path('app_update_ad', { id: annonce.id }) }}"><ion-icon
+                                name="eye-outline"></ion-icon></a>
+                    </div>
+                    <div class="icon-button">
+                        <a href=""><ion-icon name="heart-outline"></ion-icon></a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="card-meta card-meta--views">
+                    <ion-icon name="person-circle-outline"></ion-icon>
+                    <span>De {{ annonce.user.firstname }}</span>
+                </div>
+                <div class="card-meta card-meta--date">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        display="block" id="Calendar">
+                        <rect x="2" y="4" width="20" height="18" rx="4" />
+                        <path d="M8 2v4" />
+                        <path d="M16 2v4" />
+                        <path d="M2 10h20" />
+                    </svg>
+                    {{ annonce.publishedAtRelative }}
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

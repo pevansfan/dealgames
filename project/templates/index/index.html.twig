@@ -2,80 +2,132 @@
 
 {% block body %}
 
-<div class="button-primary">
-    <a href="{{ path('app_create_ad') }}">Ajouter une annonce</a>
-</div>
-
-<div class="button-primary">
-    <a href="{{ path('app_user_ads') }}">Voir mes annonces</a>
-</div>
-
-<div class="button-primary">
-    <a href="{{ path('app_profile') }}">Mon profil</a>
-</div>
-
-<div class="button-primary">
-    <a href="{{ path('app_logout') }}">Logout</a>
-</div>
-
-{# <section class="articles__container">
-    <div class="card__container">
-        <div class="card__content">
-            <div class="swiper-wrapper">
-                {% if annonces is empty %}
-                <p>Aucune annonce disponible.</p>
-                {% else %}
-                {% for annonce in annonces %}
-                <article class="card__article swiper-slide">
-                    <div class="card__image">
-                        <img src="{{ asset('images/products/' ~ annonce.imageName) }}"
-                            alt="Image de {{ annonce.title }}">
-                    </div>
-
-                    <div class="card__data">
-                        <h3 class="card__name">{{ annonce.title }}</h3>
-                        <p class="card__description">
-                            {{ annonce.description }}
-                        </p>
-
-                        <a href="#" class="card__button">View More</a>
-                    </div>
-                </article>
-                {% endfor %}
-                {% endif %}
+<section class="section home" id="home">
+    <div class="home__container">
+        <div class="home__container-presentation">
+            <h1>Votre Univers Consoles, Jeux et Accessoires au Meilleur Prix !</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa hic ad sed, illo qui totam quos deserunt
+                doloremque quisquam ipsam consectetur. Vero, magnam ducimus quo eaque optio doloremque ad corrupti.</p>
+        </div>
+        <button class="home__container-button">
+            <a href="{{ path('app_categories', {id: 'all'}) }}">Voir plus d'articles</a>
+        </button>
+        <div class="home__container-infos">
+            <div class="info">
+                <h2>200+</h2>
+                <p>International Brands</p>
+            </div>
+            <div class="info">
+                <h2>200+</h2>
+                <p>International Brands</p>
+            </div>
+            <div class="info">
+                <h2>200+</h2>
+                <p>International Brands</p>
             </div>
         </div>
     </div>
-</section> #}
+    <div class="home__img">
+        <img src="{{ asset('images/home-img.png') }}" alt="">
+    </div>
+</section>
 
-<section class="articles">
-    {% if annonces is empty %}
-    <p>Aucune annonce disponible.</p>
-    {% else %}
-    {% for annonce in annonces %}
-    <article>
-        <div class="article-wrapper">
-            <figure>
-                <img src="{{ asset('images/products/' ~ annonce.imageName) }}" alt="Image de {{ annonce.title }}">
+
+<section class="section products" id="products">
+    <h1 class="title">New arrivals</h1>
+    <div class="articles">
+        {% if annonces is empty %}
+        <p>Aucune annonce disponible.</p>
+        {% else %}
+        {% for annonce in annonces|slice(0, 6) %}
+
+        <article class="card">
+            <figure class="card-image">
+                <img src="{{ asset('images/products/' ~ annonce.imageName) }}"
+                    alt="An orange painted blue, cut in half laying on a blue background" />
             </figure>
-            <div class="article-body">
-                <h2>{{ annonce.title }}</h2>
-                <p>
-                    {{ annonce.description }}
-                </p>
-                <div>Catégorie : <strong>{{ annonce.category.name }}</strong></div>
-                <a href="{{ path('app_update_ad', { id: annonce.id }) }}" class="read-more">
-                    Read more <span class="sr-only">about this is some title</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                            clip-rule="evenodd" />
+            <div class="card-header">
+                <div class="infos">
+                    <a href="{{ path('app_update_ad', { id: annonce.id }) }}">{{ annonce.title }}</a>
+                    <span>Catégorie : <i>{{ annonce.category.name }}</i></span>
+                </div>
+                <div class="buttons">
+                    <div class="icon-button">
+                        <a href="{{ path('app_update_ad', { id: annonce.id }) }}"><ion-icon
+                                name="eye-outline"></ion-icon></a>
+                    </div>
+                    <div class="icon-button">
+                        <a href=""><ion-icon name="heart-outline"></ion-icon></a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="card-meta card-meta--views">
+                    <ion-icon name="person-circle-outline"></ion-icon>
+                    <span>De {{ annonce.user.firstname }}</span>
+                </div>
+                <div class="card-meta card-meta--date">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        display="block" id="Calendar">
+                        <rect x="2" y="4" width="20" height="18" rx="4" />
+                        <path d="M8 2v4" />
+                        <path d="M16 2v4" />
+                        <path d="M2 10h20" />
                     </svg>
-                </a>
+                    {{ annonce.publishedAtRelative }}
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <button class="all-products">
+        <a href="{{ path('app_categories', {id: 'all'}) }}">Voir tous les produits</a>
+    </button>
+</section>
+
+<section class="section categories" id="categories">
+    <h1 class="title">Our Categories</h1>
+    <div class="categories__container">
+        <div class="card-category">
+            <div class="box">
+                <div class="content">
+                    <h2>01</h2>
+                    <h3>Consoles</h3>
+                    <p>Retrouvez les dernières consoles de jeu, des classiques aux nouveautés, pour des heures de
+                        divertissement à la maison ou en déplacement.</p>
+                    <a href="{{ path('app_categories', {id: 1}) }}">
+                        Voir plus
+                    </a>
+                </div>
             </div>
         </div>
-    </article>
-    {% endfor %}
-    {% endif %}
+
+        <div class="card-category">
+            <div class="box">
+                <div class="content">
+                    <h2>02</h2>
+                    <h3>Jeux</h3>
+                    <p>Découvrez un vaste catalogue de jeux vidéo, allant des titres les plus populaires aux pépites
+                        indépendantes, pour tous les goûts et tous les âges.</p>
+                    <a href="{{ path('app_categories', {id: 2}) }}">Read More</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-category">
+            <div class="box">
+                <div class="content">
+                    <h2>03</h2>
+                    <h3>Accessoires</h3>
+                    <p>Améliorez votre confort et vos performances avec notre sélection d’accessoires de gaming :
+                        manettes, casques, claviers, sièges, second écran et bien plus.</p>
+                    <a href="{{ path('app_categories', {id: 3}) }}">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
 {% endblock %}

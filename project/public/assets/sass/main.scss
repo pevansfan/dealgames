@@ -10,9 +10,18 @@
 
 /* ==================== COMPONENTS ==================== */
 @use './components/form';
-
+@use './components/section';
+@use './components/article';
+@use './components/title';
 
 /* ==================== PAGES ==================== */
-
+@use './pages/home';
+@use './pages/products';
+@use './pages/categories';
+@use './pages/shop';
+@use './pages/profile';
 
 /* ==================== MEDIA QUERIES ==================== */
+
+/* ==================== THEME ==================== */
+@use './theme/dark';

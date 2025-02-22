@@ -1,0 +1,63 @@
+@use '../base/variables';
+@use '../base/mixins';
+
+.home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: variables.$primary-color;
+    width: 100%;
+    height: 100vh;
+    color: variables.$background-color;
+    padding-top: 200px;
+    gap: 4em;
+
+    &__container,
+    &__img {
+        max-width: 50%;
+        width: 100%;
+    }
+
+    &__container {
+        &-presentation {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+
+            h1 {
+                font-size: variables.$biggest-font;
+                font-weight: 900;
+                line-height: 1.2;
+            }
+
+            p {
+                font-weight: 300;
+            }
+        }
+
+        @include mixins.button(variables.$background-color, variables.$principal-text-color, variables.$principal-text-color, variables.$background-color);
+
+        &-infos {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+
+            .info {
+                padding-right: 30px;
+                border-right: 2px solid variables.$background-color;
+
+                h2 {
+                    font-size: variables.$h1-font-size;
+                }
+
+                &:last-child {
+                    border-right: none;
+                }
+            }
+        }
+    }
+
+    &__img img {
+        width: 100%;
+    }
+}

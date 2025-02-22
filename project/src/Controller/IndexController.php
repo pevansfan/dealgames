@@ -50,7 +50,7 @@ final class IndexController extends AbstractController
             return $this->redirectToRoute('app_index');
         }
 
-        return $this->render('create/index.html.twig', [
+        return $this->render('ad/create.html.twig', [
             'controller_name' => 'CreateController',
             'form' => $form->createView()
         ]);

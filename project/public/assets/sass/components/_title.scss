@@ -1,0 +1,7 @@
+@use '../base/variables';
+
+.title {
+    font-size: variables.$h1-font-size;
+    font-weight: 900;
+    text-align: center;
+}

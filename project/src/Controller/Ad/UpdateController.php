@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class UpdateController extends AbstractController
 {
-    #[Route('/mes-annonces/update/{id}', name: 'app_update_ad', methods: ['GET', 'POST'])]
+    #[Route('/my-announces/update/{id}', name: 'app_update_ad', methods: ['GET', 'POST'])]
     public function update(Ad $ad, Request $request, EntityManagerInterface $entityManager): Response
     {
         if ($ad->getUser() !== $this->getUser()) {

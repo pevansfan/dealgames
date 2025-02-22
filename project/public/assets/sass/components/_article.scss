@@ -1,0 +1,138 @@
+@use '../base/variables';
+
+.articles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    align-items: start;
+    gap: 50px;
+    margin: 30px;
+}
+
+.card {
+    background-color: #FFF;
+    box-shadow: 0 0 0 1px rgba(#000, .05), 0 20px 50px 0 rgba(#000, .1);
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 1.25rem;
+    position: relative;
+    transition: .15s ease-in;
+    display: flex;
+    flex-direction: column;
+    height: 650px; // Hauteur fixe de la card (à adapter selon tes besoins)
+}
+
+.card-image {
+    border-radius: 10px;
+    overflow: hidden;
+    height: 400px; // Hauteur fixe pour l'image
+    flex-shrink: 0; // Empêche l'image de rétrécir
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all .3s;
+    }
+
+    img:hover {
+        transform: scale(1.05);
+    }
+}
+
+.card-header {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    .infos {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    a {
+        font-weight: 600;
+        font-size: 1.375rem;
+        line-height: 1.25;
+        padding-right: 1rem;
+        text-decoration: none;
+        color: inherit;
+        will-change: transform;
+
+        &:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+        }
+    }
+}
+
+.icon-button a{
+    border: 0;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    font-size: 1.25rem;
+    transition: .25s ease;
+    box-shadow: 0 0 0 1px rgba(#000, .05), 0 3px 8px 0 rgba(#000, .15);
+    z-index: 1;
+    cursor: pointer;
+    color: #565656;
+
+    svg {
+        width: 1em;
+        height: 1em;
+    }
+
+    &:hover,
+    &:focus {
+        background-color: #EC4646;
+        color: #FFF;
+    }
+}
+
+.icon-button:first-child a:hover {
+    background-color: variables.$primary-color;
+}
+
+.card-footer {
+    margin-top: auto; // Pousse le footer en bas même si le contenu est court
+    border-top: 1px solid #ddd;
+    padding-top: 1.25rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.card-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #787878;
+
+    &:first-child:after {
+        display: block;
+        content: "";
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: currentcolor;
+        margin-left: .75rem;
+        margin-right: .75rem;
+    }
+
+    svg {
+        flex-shrink: 0;
+        width: 1em;
+        height: 1em;
+        margin-right: .25em;
+    }
+}

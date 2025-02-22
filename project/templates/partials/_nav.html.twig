@@ -1,18 +1,25 @@
+{% set query = query|default('') %}
 <nav>
     <div class="nav-bar">
         <ion-icon name="menu" class="sidebarOpen"></ion-icon>
-        <span class="logo navLogo"><a href="#">CodingLab</a></span>
+        <span class="logo navLogo"><a href="{{ path('app_index') }}">Dealgames.</a></span>
         <div class="menu">
             <div class="logo-toggle">
                 <span class="logo"><a href="#">CodingLab</a></span>
                 <ion-icon name="close" class="siderbarClose"></ion-icon>
             </div>
             <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Portfolio</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="{{ path('app_index') }}#home">Home</a></li>
+                <li class="categories">
+                    <a href="{{ path('app_index') }}#categories">Categories <ion-icon name="chevron-forward-outline" class="icon-down"></ion-icon></a>
+                    <div class="dropdown-categories">
+                        <span><a href="{{ path('app_categories', {id: 1}) }}">Consoles</a></span>
+                        <span><a href="{{ path('app_categories', {id: 2}) }}">Jeux</a></span>
+                        <span><a href="{{ path('app_categories', {id: 3}) }}">Accessoires</a></span>
+                    </div>
+                </li>
+                <li><a href="{{ path('app_index') }}#about">Qui sommes-nous ?</a></li>
+                <li><a href="{{ path('app_index') }}#contact">Contact</a></li>
             </ul>
         </div>
         <div class="darkLight-searchBox">
@@ -20,16 +27,22 @@
                 <ion-icon name="moon" class="moon"></ion-icon>
                 <ion-icon name="sunny" class="sun"></ion-icon>
             </div>
-            <div class="searchBox">
-               <div class="searchToggle">
-                <ion-icon name="close" class="cancel"></ion-icon>
-                <ion-icon name="search" class="search"></ion-icon>
-               </div>
-                <div class="search-field">
-                    <input type="text" placeholder="Search...">
-                    <ion-icon name="search" class="search"></ion-icon>
+            <form action="{{ path('ad_search') }}" method="get" id="searchForm">
+                <div class="searchBox">
+                    <div class="searchToggle">
+                        <ion-icon name="close" class="cancel"></ion-icon>
+                        <ion-icon name="search" class="search"></ion-icon>
+                    </div>
+                    <div class="search-field">
+                        <input type="text" name="q" placeholder="Search..." value="{{ query }}">
+                        <ion-icon name="search" class="search"></ion-icon>
+                    </div>
                 </div>
+            </form>            
+            <div class="account">
+                <a href="{{ path('app_profile') }}"><ion-icon name="person"></ion-icon></a>
             </div>
         </div>
+
     </div>
 </nav>

@@ -35,12 +35,12 @@ app_create_ad:
     methods: [GET, POST]
 
 app_user_ads:
-    path: /mes-annonces
+    path: /my-announces
     controller: App\Controller\Ad\AdController::myAds
     methods: [GET, POST]
 
 app_update_ad:
-    path: /mes-annonces/update/{id}
+    path: /my-announces/update/{id}
     controller: App\Controller\Ad\UpdateController::update
     methods: [GET, POST]
 
@@ -52,4 +52,19 @@ app_delete:
 app_profile:
     path: /profile
     controller: App\Controller\User\ProfileController::index
+    methods: [GET, POST]
+
+app_categories:
+    path: /category/{id}
+    controller: App\Controller\Category\IndexController::productsByCategory
+    methods: [GET, POST]
+
+ad_search:
+    path: /search
+    controller: App\Controller\Ad\AdController::search
+    methods: [GET]
+
+app_update_profile:
+    path: /profile/update
+    controller: App\Controller\User\ProfileController::updateProfile
     methods: [GET, POST]
