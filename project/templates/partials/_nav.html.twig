@@ -2,10 +2,10 @@
 <nav>
     <div class="nav-bar">
         <ion-icon name="menu" class="sidebarOpen"></ion-icon>
-        <span class="logo navLogo"><a href="{{ path('app_index') }}">Dealgames.</a></span>
+        <span class="logo navLogo"><a href="{{ path('app_index')}}"><img src="{{ asset('images/DealGames_Classic.png') }}"></img></a></span>
         <div class="menu">
             <div class="logo-toggle">
-                <span class="logo"><a href="#">CodingLab</a></span>
+                <span class="logo"><a href="{{ path('app_index')}}"><img src="{{ asset('images/DealGames_Classic2.png') }}"></img></a></span>
                 <ion-icon name="close" class="siderbarClose"></ion-icon>
             </div>
             <ul class="nav-links">
@@ -18,8 +18,6 @@
                         <span><a href="{{ path('app_categories', {id: 3}) }}">Accessoires</a></span>
                     </div>
                 </li>
-                <li><a href="{{ path('app_index') }}#about">Qui sommes-nous ?</a></li>
-                <li><a href="{{ path('app_index') }}#contact">Contact</a></li>
             </ul>
         </div>
         <div class="darkLight-searchBox">

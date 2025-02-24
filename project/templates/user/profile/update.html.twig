@@ -1,33 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Profil de {{ user.firstName }}{% endblock %}
+{% block title %}Profil{% endblock %}
 
 {% block body %}
-{# <h1>Profil de {{ user.firstName }} {{ user.lastName }}</h1>
-<ul>
-    <li><strong>Nom :</strong> {{ user.lastName }}</li>
-    <li><strong>Prénom :</strong> {{ user.firstName }}</li>
-    <li><strong>Email :</strong> {{ user.email }}</li>
-</ul>
+{% include 'partials/_nav.html.twig' %}
 
-<div class="button-primary">
-    <a href="{{ path('app_create_ad') }}">Ajouter une annonce</a>
-</div>
-
-<div class="button-primary">
-    <a href="{{ path('app_user_ads') }}">Voir mes annonces</a>
-</div>
-
-<div class="button-primary">
-    <a href="{{ path('app_profile') }}">Mon profil</a>
-</div>
-
-<div class="button-primary">
-    <a href="{{ path('app_logout') }}">Logout</a>
-</div>
-<div class="button-primary">
-    <a href="{{ path('app_index') }}">Retour aux annonces</a>
-</div> #}
 <div class="profile">
     <div class="container light-style flex-grow-1 container-p-y">
         <h4 class="font-weight-bold py-3 mb-4 text-light">
@@ -43,12 +20,6 @@
                             href="#account-change-password">Change password</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list" href="#my-announces">My
                             announces</a>
-                        {# <a class="list-group-item list-group-item-action" data-toggle="list"
-                            href="#account-info">Info</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list"
-                            href="#account-social-links">Social links</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list"
-                            href="#account-notifications">Notifications</a> #}
                     </div>
                     <a class="list-group-item logout list-group-item-action text-danger" href="{{ path('app_logout') }}">Se
                         déconnecter</a>
@@ -253,10 +224,6 @@
 
                 </div>
             </div>
-        </div>
-        <div class="text-right mt-3">
-            <button type="button" class="btn btn-primary">Save changes</button>&nbsp;
-            <button type="button" class="btn btn-default text-white border border-white">Cancel</button>
         </div>
     </div>
 </div>

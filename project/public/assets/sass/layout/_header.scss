@@ -48,6 +48,11 @@ nav .nav-bar .logo a {
     font-weight: 500;
     color: variables.$principal-text-color;
     text-decoration: none;
+
+    img {
+        max-width: 200px;
+        height: auto;
+    }
 }
 
 nav a {

@@ -2,6 +2,7 @@
 
 namespace App\Controller\User;
 
+use App\Entity\Role;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,6 +18,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RegistrationController extends AbstractController
 {
+    /**
+     * Handles user registration.
+     * 
+     * @param Request $request The HTTP request object.
+     * @param UserPasswordHasherInterface $userPasswordHasher The password hasher service.
+     * @param EntityManagerInterface $entityManager The entity manager.
+     * @param MailerInterface $mailer The mailer service.
+     * @param UrlGeneratorInterface $urlGenerator The URL generator service.
+     * 
+     * @return Response The HTTP response.
+     */
     #[Route('/register', name: 'app_register')]
     public function register(
         Request $request,
@@ -30,28 +42,35 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Hash the user's password before storing it
             $plainPassword = trim($form->get('plainPassword')->getData());
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
-            $user->setRoles(['ROLE_USER']);
             $user->setCreatedAt(new \DateTimeImmutable());
+            
+            // Assign default user role
+            $roleUser = $entityManager->getRepository(Role::class)->findOneBy(['name' => 'ROLE_USER']);
+            if ($roleUser) {
+                $user->addRole($roleUser);
+            }
 
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // Générez un token basé sur l'id et l'email (exemple simple)
+            // Generate a verification token (simple base64 encoding)
             $token = base64_encode($user->getId() . '::' . $user->getEmail());
 
-            // Générez l'URL de vérification
+            // Generate the email verification URL
             $verificationUrl = $urlGenerator->generate(
                 'app_verify_email',
                 ['token' => $token],
                 UrlGeneratorInterface::ABSOLUTE_URL
             );
 
+            // Create the verification email
             $email = (new TemplatedEmail())
                 ->from(new Address('test@mondomaine.com', 'Evans'))
                 ->to($user->getEmail())
-                ->subject('Veuillez confirmer votre email')
+                ->subject('Please confirm your email')
                 ->htmlTemplate('user/registration/confirmation_email.html.twig')
                 ->context([
                     'verificationUrl' => $verificationUrl,
@@ -60,7 +79,7 @@ class RegistrationController extends AbstractController
 
             $mailer->send($email);
 
-            $this->addFlash('success', 'Votre compte a été créé avec succès. Vérifiez votre boîte mail pour confirmer votre adresse.');
+            $this->addFlash('success', 'Your account has been successfully created. Check your email to confirm your address.');
 
             return $this->redirectToRoute('app_login');
         }
@@ -70,20 +89,28 @@ class RegistrationController extends AbstractController
         ]);
     }
 
+    /**
+     * Verifies a user's email based on a token sent via email.
+     * 
+     * @param Request $request The HTTP request containing the verification token.
+     * @param EntityManagerInterface $entityManager The entity manager.
+     * 
+     * @return Response The HTTP response.
+     */
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, EntityManagerInterface $entityManager): Response
     {
         $token = $request->query->get('token');
 
         if (!$token) {
-            $this->addFlash('error', 'Lien de vérification invalide.');
+            $this->addFlash('error', 'Invalid verification link.');
             return $this->redirectToRoute('app_register');
         }
 
-        // Décoder le token
+        // Decode the token
         $data = explode('::', base64_decode($token));
         if (count($data) !== 2) {
-            $this->addFlash('error', 'Lien de vérification invalide.');
+            $this->addFlash('error', 'Invalid verification link.');
             return $this->redirectToRoute('app_register');
         }
 
@@ -92,20 +119,20 @@ class RegistrationController extends AbstractController
         $user = $entityManager->getRepository(User::class)->find($userId);
 
         if (!$user || $user->getEmail() !== $email) {
-            $this->addFlash('error', 'Utilisateur introuvable ou email invalide.');
+            $this->addFlash('error', 'User not found or email mismatch.');
             return $this->redirectToRoute('app_register');
         }
 
         if ($user->isVerified()) {
-            $this->addFlash('info', 'Votre compte est déjà vérifié.');
+            $this->addFlash('info', 'Your account is already verified.');
             return $this->redirectToRoute('app_login');
         }
 
-        // Validation de l'utilisateur
+        // Mark the user as verified
         $user->setIsVerified(true);
         $entityManager->flush();
 
-        $this->addFlash('success', 'Votre email a été confirmé avec succès. Vous pouvez maintenant vous connecter.');
+        $this->addFlash('success', 'Your email has been successfully confirmed. You can now log in.');
 
         return $this->redirectToRoute('app_login');
     }

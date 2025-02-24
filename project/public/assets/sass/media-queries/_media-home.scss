@@ -1,0 +1,19 @@
+@media screen and (max-width: 768px) {
+
+    .home {
+        flex-direction: column;
+        padding: 0;
+    }
+    .home__img {
+        display: none;
+    }
+
+    .home__container {
+        max-width: 100%;
+        text-align: center;
+
+        &-infos {
+            justify-content: center;
+        }
+    }
+}

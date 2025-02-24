@@ -34,11 +34,6 @@ app_create_ad:
     controller: App\Controller\IndexController::createAd
     methods: [GET, POST]
 
-app_user_ads:
-    path: /my-announces
-    controller: App\Controller\Ad\AdController::myAds
-    methods: [GET, POST]
-
 app_update_ad:
     path: /my-announces/update/{id}
     controller: App\Controller\Ad\UpdateController::update

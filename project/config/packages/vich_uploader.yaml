@@ -1,13 +1,27 @@
 vich_uploader:
-    db_driver: orm  # Utilisation de Doctrine ORM pour la persistance
+    # Specifies the database driver used for persistence
+    db_driver: orm  # Using Doctrine ORM for persistence
+
     metadata:
-        type: attribute  # Utilisation des attributs PHP (recommandé pour Symfony 6 et supérieur)
+        # Defines how metadata is loaded; using PHP attributes (recommended for Symfony 6+)
+        type: attribute  
+
     mappings:
         ads:
-            uri_prefix: /images/products
-            upload_destination: '%kernel.project_dir%/public/images/products'
-            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer  # Génération d'un nom de fichier unique
+            # Base URL prefix for uploaded files
+            uri_prefix: /images/products  
+            
+            # Path where files will be stored
+            upload_destination: '%kernel.project_dir%/public/images/products'  
 
-            inject_on_load: false  # Injecter ou non le fichier lors de l'hydratation de l'entité
-            delete_on_update: true  # Supprimer le fichier lors de la mise à jour de l'entité
-            delete_on_remove: true  # Supprimer le fichier lors de la suppression de l'entité
+            # Generates a unique file name automatically
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer  
+
+            # Whether to inject the file into the entity when loading it from the database
+            inject_on_load: false  
+
+            # If true, deletes the previous file when updating the entity with a new one
+            delete_on_update: true  
+
+            # If true, deletes the file when the entity is removed from the database
+            delete_on_remove: true  

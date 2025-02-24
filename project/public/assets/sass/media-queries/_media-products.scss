@@ -1,0 +1,11 @@
+@media screen and (max-width: 1024px) {
+    .articles {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .articles {
+        grid-template-columns: auto;
+    }
+}

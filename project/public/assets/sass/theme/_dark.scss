@@ -1,9 +1,24 @@
 body.dark  {
-    .home {
+    .home,
+    .profile {
         background-color: #000;
     }
 
     .title {
         color: #fff;
+    }
+
+    .filters__group ul .category,
+    .filters__group ul .category:hover {
+        background-color: #fff;
+
+        a {
+            color: #000;
+        }
+
+    }
+
+    .filters__group ul .category.active {
+        border: 2px solid red;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -12,40 +13,54 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    // Primary key for the User entity
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    // The email address, which is unique for each user
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
+    // Many-to-many relationship with Role entity (users have roles)
     #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'users')]
+    #[ORM\JoinTable(name: 'user_role')]
     private Collection $roles;
 
-    /**
-     * @var string The hashed password
-     */
+    // The hashed password for the user
     #[ORM\Column]
     private ?string $password = null;
 
+    // Last name of the user
     #[ORM\Column(length: 255)]
     private ?string $lastname = null;
 
+    // First name of the user
     #[ORM\Column(length: 255)]
     private ?string $firstname = null;
 
+    // A flag indicating whether the user is verified (e.g., via email)
     #[ORM\Column]
     private ?bool $isVerified = false;
 
+    // Timestamp of when the user was created
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
+    // Constructor initializing the roles collection
+    public function __construct()
+    {
+        $this->roles = new ArrayCollection();
+    }
+
+    // Getter for the user ID
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    // Getter and setter for the email address
     public function getEmail(): ?string
     {
         return $this->email;
@@ -75,38 +90,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles->map(fn(Role $role) => $role->getName())->toArray();
 
-        // On s'assure que chaque utilisateur ait au moins ROLE_USER
+        // Ensuring the user has at least ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
 
-    public function addRole(Role $role): static
+    // Adds a role to the user
+    public function addRole(Role $role): self
     {
         if (!$this->roles->contains($role)) {
-            $this->roles->add($role);
+            $this->roles[] = $role;
         }
 
         return $this;
     }
 
-    public function removeRole(Role $role): static
+    // Removes a role from the user
+    public function removeRole(Role $role): self
     {
         $this->roles->removeElement($role);
 
         return $this;
     }
 
-    public function setRoles(array $roles): static
-    {
-        // Cette méthode ne sert plus vraiment dans ce cas de ManyToMany
-        // Tu peux la laisser vide ou lever une exception si tu veux
-        return $this;
-    }
-
-
     /**
-     * @return Collection<int, Role>
+     * @return Collection<int, Role>  Returns a collection of Role entities associated with the user
      */
     public function getRolesEntities(): Collection
     {
@@ -121,6 +130,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
+    // Sets the user's password
     public function setPassword(string $password): static
     {
         $this->password = $password;
@@ -133,10 +143,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        // If there are any sensitive, temporary data to clear, it can be done here
     }
 
+    // Getter and setter for the user's last name
     public function getLastname(): ?string
     {
         return $this->lastname;
@@ -149,6 +159,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    // Getter and setter for the user's first name
     public function getFirstname(): ?string
     {
         return $this->firstname;
@@ -161,6 +172,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    // Getter and setter for the user's verification status
     public function isVerified(): ?bool
     {
         return $this->isVerified;
@@ -173,6 +185,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    // Getter and setter for the user's creation timestamp
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->created_at;

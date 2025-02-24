@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+{% include 'partials/_nav.html.twig' %}
 
 <section class="section home" id="home">
     <div class="home__container">
@@ -48,12 +49,12 @@
             </figure>
             <div class="card-header">
                 <div class="infos">
-                    <a href="{{ path('app_update_ad', { id: annonce.id }) }}">{{ annonce.title }}</a>
+                    <a href="{{ path('ad_detail', { id: annonce.id }) }}">{{ annonce.title }}</a>
                     <span>Catégorie : <i>{{ annonce.category.name }}</i></span>
                 </div>
                 <div class="buttons">
                     <div class="icon-button">
-                        <a href="{{ path('app_update_ad', { id: annonce.id }) }}"><ion-icon
+                        <a href="{{ path('ad_detail', { id: annonce.id }) }}"><ion-icon
                                 name="eye-outline"></ion-icon></a>
                     </div>
                     <div class="icon-button">
@@ -129,5 +130,5 @@
         </div>
     </div>
 </section>
-
+{% include 'partials/_footer.html.twig' %}
 {% endblock %}

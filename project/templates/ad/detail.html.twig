@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une annonce{% endblock %}
+
+{% block body %}
+{% include 'partials/_nav.html.twig' %}
+<section style="height: 100vh; display: flex; flex-direction: column; justify-content:center; align-items: center;">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0 rounded-lg"
+                    src="{{ asset('images/products/' ~ ad.imageName) }}" alt="..." /></div>
+            <div class="col-md-6">
+                <div class="small mb-1">De <strong>{{ ad.user.lastname }} {{ ad.user.firstname }}</strong></div>
+                <h1 class="display-5 fw-bolder">{{ ad.title }}</h1>
+                <div class="fs-5 mb-5">
+                    <span>Catégorie : <i>{{ ad.category.name }}</i></span>
+                </div>
+                <p class="lead">{{ ad.description }}</p>
+                <div class="d-flex">
+                    <a href="mailto:{{ ad.user.email }}" class="d-flex align-center">
+                        <button class="btn btn-outline-dark d-flex align-items-center justify-center flex-shrink-0" type="button">
+                            <ion-icon name="mail-outline" class="mr-2"></ion-icon>
+                            <span>{{ ad.user.email }}</span>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section products" id="products">
+    <h1 class="title">Vous allez aimé aussi...</h1>
+    <div class="articles">
+        {% if similarAds is empty %}
+        <p>Aucune annonce disponible.</p>
+        {% else %}
+        {% for annonce in similarAds|slice(0, 6) %}
+
+        <article class="card">
+            <figure class="card-image">
+                <img src="{{ asset('images/products/' ~ annonce.imageName) }}"
+                    alt="An orange painted blue, cut in half laying on a blue background" />
+            </figure>
+            <div class="card-header">
+                <div class="infos">
+                    <a href="{{ path('ad_detail', { id: annonce.id }) }}">{{ annonce.title }}</a>
+                    <span>Catégorie : <i>{{ annonce.category.name }}</i></span>
+                </div>
+                <div class="buttons">
+                    <div class="icon-button">
+                        <a href="{{ path('ad_detail', { id: annonce.id }) }}"><ion-icon
+                                name="eye-outline"></ion-icon></a>
+                    </div>
+                    <div class="icon-button">
+                        <a href=""><ion-icon name="heart-outline"></ion-icon></a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="card-meta card-meta--views">
+                    <ion-icon name="person-circle-outline"></ion-icon>
+                    <span>De {{ annonce.user.firstname }}</span>
+                </div>
+                <div class="card-meta card-meta--date">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        display="block" id="Calendar">
+                        <rect x="2" y="4" width="20" height="18" rx="4" />
+                        <path d="M8 2v4" />
+                        <path d="M16 2v4" />
+                        <path d="M2 10h20" />
+                    </svg>
+                    {{ annonce.publishedAtRelative }}
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+        {% endif %}
+    </div>
+</section>
+{% include 'partials/_footer.html.twig' %}
+{% endblock %}

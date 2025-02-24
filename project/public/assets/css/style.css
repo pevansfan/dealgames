@@ -109,6 +109,10 @@ nav .nav-bar .logo a {
   color: #000000;
   text-decoration: none;
 }
+nav .nav-bar .logo a img {
+  max-width: 200px;
+  height: auto;
+}
 
 nav a {
   display: flex;
@@ -451,10 +455,6 @@ body.dark .search-field ion-icon {
   border-color: #000000;
 }
 
-div:has(input:focus) > label {
-  background-color: #000000;
-}
-
 input[type=file]::file-selector-button {
   background-color: #f06272;
   color: aliceblue;
@@ -523,6 +523,11 @@ a:hover {
 }
 
 .agree-terms {
+  display: flex;
+  align-items: center;
+}
+
+.password-field {
   display: flex;
   align-items: center;
 }
@@ -1128,13 +1133,116 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
   border: none;
 }
 
+.reset__password {
+  background-color: #ff99f5;
+  background-image: radial-gradient(at 61% 4%, hsl(303, 91%, 61%) 0px, transparent 50%), radial-gradient(at 75% 66%, hsl(196, 91%, 79%) 0px, transparent 50%), radial-gradient(at 98% 88%, hsl(76, 87%, 78%) 0px, transparent 50%), radial-gradient(at 23% 16%, hsl(238, 96%, 77%) 0px, transparent 50%), radial-gradient(at 95% 65%, hsl(13, 91%, 75%) 0px, transparent 50%), radial-gradient(at 10% 79%, hsl(228, 96%, 69%) 0px, transparent 50%), radial-gradient(at 85% 58%, hsl(328, 81%, 68%) 0px, transparent 50%);
+  background-repeat: no-repeat;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.reset__password .card {
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 40px;
+  height: 500px;
+}
+
+.reset__password .lock-icon {
+  font-size: 6rem;
+}
+
+.reset__password h2 {
+  font-size: 1.5rem;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+
+.reset__password p {
+  font-size: 12px;
+}
+
+.reset__password label {
+  display: none;
+}
+
+.reset__password .passInput {
+  margin-top: 15px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid deepskyblue;
+  font-size: 15px;
+  color: white;
+  outline: none;
+}
+
+.reset__password button {
+  margin-top: 15px;
+  width: 100%;
+  background-color: deepskyblue;
+  color: white;
+  padding: 10px;
+  text-transform: uppercase;
+  border-radius: 10px;
+}
+
 /* ==================== MEDIA QUERIES ==================== */
+@media screen and (max-width: 768px) {
+  .home {
+    flex-direction: column;
+    padding: 0;
+  }
+  .home__img {
+    display: none;
+  }
+  .home__container {
+    max-width: 100%;
+    text-align: center;
+  }
+  .home__container-infos {
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .articles {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 768px) {
+  .articles {
+    grid-template-columns: auto;
+  }
+}
 /* ==================== THEME ==================== */
-body.dark .home {
+body.dark .home,
+body.dark .profile {
   background-color: #000;
 }
 body.dark .title {
   color: #fff;
+}
+body.dark .filters__group ul .category,
+body.dark .filters__group ul .category:hover {
+  background-color: #fff;
+}
+body.dark .filters__group ul .category a,
+body.dark .filters__group ul .category:hover a {
+  color: #000;
+}
+body.dark .filters__group ul .category.active {
+  border: 2px solid red;
 }
 
 /*# sourceMappingURL=style.css.map */

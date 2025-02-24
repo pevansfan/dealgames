@@ -20,8 +20,11 @@
 @use './pages/categories';
 @use './pages/shop';
 @use './pages/profile';
+@use './pages/reset-password';
 
 /* ==================== MEDIA QUERIES ==================== */
+@use './media-queries/media-home';
+@use './media-queries/media-products';
 
 /* ==================== THEME ==================== */
 @use './theme/dark';

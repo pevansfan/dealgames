@@ -97,10 +97,6 @@
     border-color: variables.$principal-text-color;
 }
 
-div:has(input:focus)>label {
-    background-color: variables.$principal-text-color;
-}
-
 input[type="file"]::file-selector-button {
     background-color: #f06272;
     color: aliceblue;
@@ -145,6 +141,11 @@ a:hover {
 }
 
 .agree-terms {
+    display: flex;
+    align-items: center;
+}
+
+.password-field {
     display: flex;
     align-items: center;
 }
